@@ -36,6 +36,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _decrementCounter() => setState(() => _counter--);
 
+  void _resetCounter() => setState(() => _counter = 0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,17 +55,28 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            ElevatedButton(
-              onPressed: _decrementCounter,
-              child: const Text('Decrement Counter'),
-            )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.red),
+                  onPressed: _decrementCounter,
+                  child: const Text('Decrement Counter'),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.green),
+                  onPressed: _incrementCounter,
+                  child: const Text('Increment Counter'),
+                ),
+              ],
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        onPressed: _resetCounter,
+        tooltip: 'Reset Counter',
+        child: const Icon(Icons.refresh),
       ),
     );
   }
