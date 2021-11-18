@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'fancy_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,15 +32,34 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  bool _reversed = false;
+  final List<UniqueKey> _buttonKeys = [UniqueKey(), UniqueKey()];
 
   void _incrementCounter() => setState(() => _counter++);
 
   void _decrementCounter() => setState(() => _counter--);
 
-  void _resetCounter() => setState(() => _counter = 0);
+  void _resetCounter() {
+    setState(() => _counter = 0);
+    _swap();
+  }
+
+  void _swap() => setState(() => _reversed = !_reversed);
 
   @override
   Widget build(BuildContext context) {
+    final decrementButton = FancyButton(
+      key: _buttonKeys.first,
+      onPressed: _decrementCounter,
+      child: const Text('Decrement Counter'),
+    );
+    final incrementButton = FancyButton(
+      key: _buttonKeys.last,
+      onPressed: _incrementCounter,
+      child: const Text('Increment Counter'),
+    );
+    List<Widget> _buttons = <Widget>[incrementButton, decrementButton];
+    if (_reversed) _buttons = _buttons.reversed.toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -70,16 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.red),
-                  onPressed: _decrementCounter,
-                  child: const Text('Decrement Counter'),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(primary: Colors.green),
-                  onPressed: _incrementCounter,
-                  child: const Text('Increment Counter'),
-                ),
+                ..._buttons,
               ],
             ),
           ],
