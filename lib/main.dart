@@ -48,6 +48,18 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Container(
+              margin: const EdgeInsets.only(bottom: 100.0),
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: Colors.blue.withOpacity(0.25),
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+              child: Image.asset(
+                'flutter_logo_1080.png',
+                width: 100.0,
+              ),
+            ),
             const Text(
               'You have pushed the button this many times:',
             ),
